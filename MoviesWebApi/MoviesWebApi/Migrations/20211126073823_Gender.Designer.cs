@@ -11,8 +11,8 @@ using MoviesWebApi;
 namespace MoviesWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211126072643_Initial")]
-    partial class Initial
+    [Migration("20211126073823_Gender")]
+    partial class Gender
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace MoviesWebApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("MoviesWebApi.Entities.Genders", b =>
+            modelBuilder.Entity("MoviesWebApi.Entities.Gender", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

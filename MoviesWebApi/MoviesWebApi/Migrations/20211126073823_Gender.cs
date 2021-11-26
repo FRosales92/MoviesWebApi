@@ -4,7 +4,7 @@
 
 namespace MoviesWebApi.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Gender : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

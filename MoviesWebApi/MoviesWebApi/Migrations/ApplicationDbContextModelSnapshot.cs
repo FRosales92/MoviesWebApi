@@ -21,7 +21,7 @@ namespace MoviesWebApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("MoviesWebApi.Entities.Genders", b =>
+            modelBuilder.Entity("MoviesWebApi.Entities.Gender", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

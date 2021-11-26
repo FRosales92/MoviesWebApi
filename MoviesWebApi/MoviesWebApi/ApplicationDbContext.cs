@@ -8,6 +8,6 @@ namespace MoviesWebApi
         public ApplicationDbContext(DbContextOptions options): base(options)
         {
         }
-        public DbSet<Genders> Genders { get; set; }
+        public DbSet<Gender> Genders { get; set; }
     }
 }

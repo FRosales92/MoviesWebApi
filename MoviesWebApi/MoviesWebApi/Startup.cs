@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace MoviesWebApi
 {
@@ -12,8 +13,14 @@ namespace MoviesWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //DB Connection
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //AutoMapper
+            services.AddAutoMapper(typeof(Startup));
+
+
             services.AddControllers();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
