@@ -12,9 +12,11 @@ namespace MoviesWebApi.Helpers
             CreateMap<Gender, GenderDTO>().ReverseMap();
             //I will received CreationGenderDTO to Gender
             CreateMap<CreationGenderDTO, Gender>();
-            CreateMap<Actor, ActorDTO>();
-            
+
+            CreateMap<Actor, ActorDTO>().ReverseMap();
             CreateMap<CreationActorDTO, Actor>().ForMember(x => x.Picture, options => options.Ignore());
+
+            CreateMap<PatchActorDTO, Actor>().ReverseMap();
 
         }
     }

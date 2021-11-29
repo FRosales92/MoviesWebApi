@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoviesWebApi.DTOs;
@@ -65,9 +66,6 @@ namespace MoviesWebApi.Controllers
         [HttpPut("{id:int}")]
         public async Task<ActionResult> Put([FromForm] CreationActorDTO creationActorDTO, int id)
         {
-            //var entity = mapper.Map<Actor>(creationActorDTO);
-            //entity.Id = id;
-            //context.Entry(entity).State = EntityState.Modified;
 
             var actorDB = await context.Actors.FirstOrDefaultAsync(actor => actor.Id == id);
             if(actorDB == null)
@@ -90,6 +88,37 @@ namespace MoviesWebApi.Controllers
             await context.SaveChangesAsync();
             return NoContent();
         }
+
+        [HttpPatch("{id:int}")] //To make patch we need to install JsonPatchDocument
+        public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<PatchActorDTO> patchDocument)
+        {
+            if (patchDocument == null)
+            {
+                return BadRequest();
+            }
+            var entityDB = await context.Actors.FirstOrDefaultAsync(x => x.Id == id);
+            if (entityDB == null)
+            {
+                return NotFound();
+            }
+
+            //from db to patchDTO
+            var entityDTO = mapper.Map<PatchActorDTO>(entityDB);
+            patchDocument.ApplyTo(entityDTO, ModelState); //Isntall Newtonsof
+            var isValid = TryValidateModel(entityDTO);
+
+            if (!isValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            mapper.Map(entityDTO, entityDB);
+            await context.SaveChangesAsync();
+            return NoContent();
+
+        }
+
+
 
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id)

@@ -19,7 +19,7 @@ namespace MoviesWebApi
             services.AddTransient<IFileStorage, LocalFileStorage>();
             services.AddHttpContextAccessor();
 
-            
+
             //DB Connection
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -28,7 +28,9 @@ namespace MoviesWebApi
             services.AddAutoMapper(typeof(Startup));
 
 
-            services.AddControllers();
+            //NewTonsof was added
+            services.AddControllers()
+            .AddNewtonsoftJson();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -56,4 +58,4 @@ namespace MoviesWebApi
         }
     }
 }
-        
+
