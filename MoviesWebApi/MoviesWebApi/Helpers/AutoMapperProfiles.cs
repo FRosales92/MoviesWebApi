@@ -13,7 +13,8 @@ namespace MoviesWebApi.Helpers
             //I will received CreationGenderDTO to Gender
             CreateMap<CreationGenderDTO, Gender>();
             CreateMap<Actor, ActorDTO>();
-            CreateMap<CreationActorDTO, Actor>();
+            
+            CreateMap<CreationActorDTO, Actor>().ForMember(x => x.Picture, options => options.Ignore());
 
         }
     }

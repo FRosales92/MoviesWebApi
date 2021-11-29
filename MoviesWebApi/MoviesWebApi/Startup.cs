@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using MoviesWebApi.Servicios;
 
 namespace MoviesWebApi
 {
@@ -13,6 +14,12 @@ namespace MoviesWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //Serivice to save files 
+            services.AddTransient<IFileStorage, LocalFileStorage>();
+            services.AddHttpContextAccessor();
+
+            
             //DB Connection
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -30,6 +37,9 @@ namespace MoviesWebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //Added to can uses statics files  
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 
